@@ -1,103 +1,86 @@
-import logo from './logo.svg';
-// import './App.css';
-import {Carousel, Container} from 'react-bootstrap'
-import axios from 'axios'
-import React, {useState, useEffect} from 'react';
+import logo from "./logo.svg";
+import "./App.css";
+import { Carousel, Container } from "react-bootstrap";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
 function App() {
+  // set state
+  const [abstract, setabstract] = useState();
 
-  // set state 
-  const [abstract, setabstract] = useState()
+  // for  slider bootstrap
+  const [index, setIndex] = useState(0);
 
+  const handleSelect = (selectedIndex, e) => {
+    setIndex(selectedIndex);
+  };
   //for images
-  const [multimedia, setmultimedia] = useState()
+  const [multimedia, setmultimedia] = useState();
 
+  const getData = () => {
+    axios
+      .get(
+        "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=zscDXL9AwbeAMCOkf3mdRzDFQrxZVNpd"
+      )
+      .then(function (response) {
+        // handle success
 
-  const getData = () =>{
-    axios.get('https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=zscDXL9AwbeAMCOkf3mdRzDFQrxZVNpd')
-    .then(function (response) {
-      // handle success
+        // whole object access
+        console.log(response.data.response);
 
-      // whole object access
-      console.log(response.data.response);
-      
-      //data get for abstract
-      console.log(response.data.response.docs);
-      setabstract(response.data.response.docs);
-      // console.log(response.docs[0]);
-  
-      // setmultimedia()
-      console.log(response.data.response.docs.multimedia);
-    })
-    .catch(function (error) {
-      // handle error
-      console.log(error);
-    })
-    .then(function () {
-      // always executed
-    });
-  }
+        //data get for abstract
+        console.log(response.data.response.docs);
+        setabstract(response.data.response.docs);
+        // console.log(response.docs[0]);
+
+        // setmultimedia()
+        console.log(response.data.response.docs.multimedia[0].url);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+      .then(function () {
+        // always executed
+      });
+  };
   // for axios calls the apis
   useEffect(() => {
     getData();
-    
-  }, [])
-  
+  }, []);
 
   return (
     <div className="App">
-      
-<Container>
-     
-    {abstract && abstract.map((item, key)=>{
-      return (
-        <>
-        {/* <h1>{item.id}</h1> <br></br>
-        <h1>{item.abstract}</h1> */}
-         <Carousel>
-  <Carousel.Item interval={1000}>
-    <img
-      className="d-block w-100"
-      src={item.abstract}
-      alt="First slide"
-    />
-<Carousel.Caption>
-      <p>{item.abstract}</p>
-      {/* <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p> */}
-    </Carousel.Caption>
-  </Carousel.Item>
-  {/* <Carousel.Item interval={500}>
-    <img
-      className="d-block w-100"
-      src="holder.js/800x400?text=Second slide&bg=282c34"
-      alt="Second slide"
-    />
-    <Carousel.Caption>
-      <h3>Second slide label</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-    </Carousel.Caption>
-  </Carousel.Item> */}
-  {/* <Carousel.Item>
-    <img
-      className="d-block w-100"
-      src="holder.js/800x400?text=Third slide&bg=20232a"
-      alt="Third slide"
-    />
-    <Carousel.Caption>
-      <h3>Third slide label</h3>
-      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-    </Carousel.Caption>
-  </Carousel.Item> */}
-</Carousel>
+      {/* {abstract}
+      console.log({abstract}) */}
+      <Container>
+        <Carousel activeIndex={index} onSelect={handleSelect}>
+          {abstract &&
+            abstract.map((item, key) => {
+              return (
+                <>
+                  <Carousel.Item>
+                    <img
+                      className="d-block w-100"
+                      src={item.web_url}
+                      alt="images slides"
+                    />
+                    <Carousel.Caption style={{width: "72%"}}>
+                      {/* <h3>First slide label</h3> */}
+                      <h3 style={{ fontSize: "22px" }}>
+                        {" "}
+                        <span style={{ color: "black" }}> Heading:</span>{" "}
+                        {item.abstract}
+                      </h3>
+                      {/* {item.web_url} */}
+                    </Carousel.Caption>
+                  </Carousel.Item>
+                </>
+              );
+            })}
 
 
-        
-        </>
-        
-      )
-    })}
-    
-</Container>
-
+        </Carousel>
+      </Container>
     </div>
   );
 }
