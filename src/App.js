@@ -68,12 +68,13 @@ function App() {
                       {/* <h3>First slide label</h3> */}
                       <h3 style={{ fontSize: "22px" }}>
                         {" "}
-                        <span style={{ color: "black" }}> Heading:</span>{" "}
+                        <span style={{ color: "black" }}> Heading : </span>{" "}
                         {item.abstract}
                       </h3>
                       {/* {item.web_url} */}
+
                     </Carousel.Caption>
-                  </Carousel.Item>
+                  </Carousel.Item> 
                 </>
               );
             })}
