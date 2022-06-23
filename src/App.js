@@ -3,6 +3,7 @@ import "./App.css";
 import { Carousel, Container } from "react-bootstrap";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+// import Navbar from './components/Navbar.js'
 function App() {
   // set state
   const [abstract, setabstract] = useState();
@@ -16,7 +17,7 @@ function App() {
   //for images
   const [multimedia, setmultimedia] = useState();
 
-  const getData = () => {
+  const getData = () => { 
     axios
       .get(
         "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=zscDXL9AwbeAMCOkf3mdRzDFQrxZVNpd"
@@ -32,7 +33,7 @@ function App() {
         setabstract(response.data.response.docs);
         // console.log(response.docs[0]);
 
-        // setmultimedia()
+        // setmultimedia(response.data.response.docs.multimedia[0].url)
         console.log(response.data.response.docs.multimedia[0].url);
       })
       .catch(function (error) {
@@ -52,6 +53,10 @@ function App() {
     <div className="App">
       {/* {abstract}
       console.log({abstract}) */}
+
+      {/* for navbar code */}
+      {/* <Navbar /> */}
+
       <Container>
         <Carousel activeIndex={index} onSelect={handleSelect}>
           {abstract &&
@@ -64,7 +69,7 @@ function App() {
                       src={item.web_url}
                       alt="images slides"
                     />
-                    <Carousel.Caption style={{width: "72%"}}>
+                    <Carousel.Caption style={{width: "72%", background: "beige"}}>
                       {/* <h3>First slide label</h3> */}
                       <h3 style={{ fontSize: "22px" }}>
                         {" "}
