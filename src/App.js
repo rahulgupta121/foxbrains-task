@@ -1,92 +1,71 @@
 import logo from "./logo.svg";
 import "./App.css";
-import { Carousel, Container } from "react-bootstrap";
-import axios from "axios";
-import React, { useState, useEffect } from "react";
-// import Navbar from './components/Navbar.js'
+import Counter from "./components/Counter"
+import Forms from './components/Controlled-form'
+import data from './data.js'
 function App() {
-  // set state
-  const [abstract, setabstract] = useState();
 
-  // for  slider bootstrap
-  const [index, setIndex] = useState(0);
 
-  const handleSelect = (selectedIndex, e) => {
-    setIndex(selectedIndex);
-  };
-  //for images
-  const [multimedia, setmultimedia] = useState();
+  // const data 
+  const datatableData = [
+    ["Joe James", "Example Inc.", "Yonkers", "NY"],
+    ["John Walsh", "Example Inc.", "Hartford", "CT"],
+    ["Bob Herm", "Example Inc.", "Tampa", "FL"],
+    ["James Houston", "Example Inc.", "Dallas", "TX"],
+    ["Prabhakar Linwood", "Example Inc.", "Hartford", "CT"],
+    ["Kaui Ignace", "Example Inc.", "Yonkers", "NY"],
+    ["Esperanza Susanne", "Example Inc.", "Hartford", "CT"],
+    ["Christian Birgitte", "Example Inc.", "Tampa", "FL"],
+    ["Meral Elias", "Example Inc.", "Hartford", "CT"],
+    ["Deep Pau", "Example Inc.", "Yonkers", "NY"],
+    ["Sebastiana Hani", "Example Inc.", "Dallas", "TX"],
+    ["Marciano Oihana", "Example Inc.", "Yonkers", "NY"],
+    ["Brigid Ankur", "Example Inc.", "Dallas", "TX"],
+    ["Anna Siranush", "Example Inc.", "Yonkers", "NY"],
+    ["Avram Sylva", "Example Inc.", "Hartford", "CT"],
+    ["Serafima Babatunde", "Example Inc.", "Tampa", "FL"],
+    ["Gaston Festus", "Example Inc.", "Tampa", "FL"],
+  ];
+  console.log(data)
 
-  const getData = () => { 
-    axios
-      .get(
-        "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=zscDXL9AwbeAMCOkf3mdRzDFQrxZVNpd"
-      )
-      .then(function (response) {
-        // handle success
 
-        // whole object access
-        console.log(response.data.response);
+  const addMeClick = () =>{
+    alert(12+2)
+  }
 
-        //data get for abstract
-        console.log(response.data.response.docs);
-        setabstract(response.data.response.docs);
-        // console.log(response.docs[0]);
-
-        // setmultimedia(response.data.response.docs.multimedia[0].url)
-        console.log(response.data.response.docs.multimedia[0].url);
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-      })
-      .then(function () {
-        // always executed
-      });
-  };
-  // for axios calls the apis
-  useEffect(() => {
-    getData();
-  }, []);
-
+  const removeMeClick = (id) =>{
+    alert(12+2)
+  }
   return (
     <div className="App">
-      {/* {abstract}
-      console.log({abstract}) */}
+     <div className="mainCard"> 
+     {/* <Counter />
+     <Forms /> */}
 
-      {/* for navbar code */}
-      {/* <Navbar /> */}
+{data && data.map((item, key)=>{
+return (
+  <>
+{/* <h2>{item.name}</h2> */}
 
-      <Container>
-        <Carousel activeIndex={index} onSelect={handleSelect}>
-          {abstract &&
-            abstract.map((item, key) => {
-              return (
-                <>
-                  <Carousel.Item>
-                    <img
-                      className="d-block w-100"
-                      src={item.web_url}
-                      alt="images slides"
-                    />
-                    <Carousel.Caption style={{width: "72%", background: "beige"}}>
-                      {/* <h3>First slide label</h3> */}
-                      <h3 style={{ fontSize: "22px" }}>
-                        {" "}
-                        <span style={{ color: "black" }}> Heading : </span>{" "}
-                        {item.abstract}
-                      </h3>
-                      {/* {item.web_url} */}
+  <div className="card" >
+<img src={item.pic} alt="Avatar" style={{width: "100%" }}/>
+<div className="container">
+  <h4><b>{item.name}</b></h4>
+  <h4><b>{item.price}</b></h4> 
+  <div className="menuButton">
+    <button onClick={()=> addMeClick()} className='addButton'>+</button> 
+  <button onClick={()=> removeMeClick()} className='removeButton'>-</button> 
+  </div>
+  
+</div>
+</div>
 
-                    </Carousel.Caption>
-                  </Carousel.Item> 
-                </>
-              );
-            })}
+  </>
+)
 
+})}
+     </div>
 
-        </Carousel>
-      </Container>
     </div>
   );
 }

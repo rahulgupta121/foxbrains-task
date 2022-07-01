@@ -25,3 +25,42 @@
 .carousel-control-next-icon, .carousel-control-prev-icon{
   background-color: blueviolet;
 }
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 20%;
+  border-radius: 22px;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.container {
+  padding: 23px 16px;
+}
+.mainCard{
+  display: flex;
+  justify-content: center;
+  justify-content: space-around;
+}
+.addButton{
+  background-color: rgb(126, 4, 156);
+  width: 50px;
+  color: white;
+  font-size: 22px;
+  border: solid 1px black;
+}
+.removeButton{
+  background-color: rgb(178, 219, 83);
+  width: 50px;
+  color: rgb(53, 3, 100);
+  font-size: 22px;
+  border: solid 1px black;
+}
+.menuButton{
+  display: flex;
+  justify-content: center;
+  justify-content: space-evenly;
+}
